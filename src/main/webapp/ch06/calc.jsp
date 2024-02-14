@@ -21,5 +21,7 @@
 		<input type="submit" value="=">
 		<input type="text" value="${result}" disabled>
 	</form>
+	<br>
+	<button onclick="location.href='/jw/ch06/calc2'">처음으로</button>
 </body>
 </html>

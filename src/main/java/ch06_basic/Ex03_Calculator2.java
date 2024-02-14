@@ -52,16 +52,17 @@ public class Ex03_Calculator2 extends HttpServlet {
 		}
 		
 		// calc.jsp(Servlet)을 직접 호출
-//		RequestDispatcher rd = request.getRequestDispatcher("/ch06/calc.jsp");
-//		request.setAttribute("num1", num1);
-//		request.setAttribute("num2", num2);
-//		request.setAttribute("result", result);
-//		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/ch06/calc.jsp");
+		request.setAttribute("num1", num1);
+		request.setAttribute("num2", num2);
+		request.setAttribute("result", result);
+		rd.forward(request, response);
 		
 		// 리디렉션 이용
 		// Server --> Client --> Server
-		String url = "/jw/ch06/calc2?num1=" + num1 + "&num2=" + num2 + "&result=" + result;
-		response.sendRedirect(url);
+//		String url = "/jw/ch06/calc2?num1=" + num1 + "&num2=" + num2 + "&result=" + result;
+//		System.out.println(url);
+//		response.sendRedirect(url);
 	}
 
 }
