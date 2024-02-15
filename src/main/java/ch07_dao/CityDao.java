@@ -32,7 +32,7 @@ public class CityDao {
 	
 	public City getCity(int id) {
 		Connection conn = getConnection();
-		String sql = "select * from city where id=?";
+		String sql = "select * from kcity where id=?";
 		City city = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -50,13 +50,13 @@ public class CityDao {
 		return city;
 	}
 	
-	public List<City> getCityList(String country, int num, int offset) {
+	public List<City> getCityList(String district, int num, int offset) {
 		Connection conn = getConnection();
-		String sql = "select * from city where countryCode=? limit ? offset ?";
+		String sql = "select * from kcity where district=? limit ? offset ?";
 		List<City> list = new ArrayList<City>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, country);
+			pstmt.setString(1, district);
 			pstmt.setInt(2, num);
 			pstmt.setInt(3, offset);
 			
@@ -71,6 +71,23 @@ public class CityDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void insertCity(City city) {
+		Connection conn = getConnection();
+		String sql = "insert into kcity values (default, ?, ?, ?, ?)";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, city.getName());
+			pstmt.setString(2, city.getCountryCode());
+			pstmt.setString(3, city.getDistrict());
+			pstmt.setInt(4, city.getPopulation());
+			
+			pstmt.executeUpdate();
+			pstmt.close(); conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

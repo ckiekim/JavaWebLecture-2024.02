@@ -109,4 +109,14 @@
     <servlet-name>Ex02_List</servlet-name>
     <url-pattern>/Ex02_List</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex03_Insert</display-name>
+    <servlet-name>Ex03_Insert</servlet-name>
+    <servlet-class>ch07_dao.Ex03_Insert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex03_Insert</servlet-name>
+    <url-pattern>/Ex03_Insert</url-pattern>
+  </servlet-mapping>
 </web-app>
