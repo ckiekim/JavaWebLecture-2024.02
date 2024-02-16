@@ -25,6 +25,8 @@ public class KcityController extends HttpServlet {
 		String requestUri = request.getRequestURI();
 		String[] uri = requestUri.split("/");
 		String action = uri[uri.length - 1];
+		String method = request.getMethod();
+		RequestDispatcher rd = null;
 		
 		switch(action) {
 		case "list":
@@ -36,13 +38,19 @@ public class KcityController extends HttpServlet {
 			int offset = (offset_ == null || offset_.equals("")) ? 0 : Integer.parseInt(offset_);
 			
 			List<City> list = cDao.getCityList(district, num, offset);
-			RequestDispatcher rd = request.getRequestDispatcher("/ch07/kcity/list.jsp");
+			rd = request.getRequestDispatcher("/ch07/kcity/list.jsp");
 			request.setAttribute("list", list);
 			rd.forward(request, response);
 			break;
 			
 		case "insert":
-			
+			if (method.equals("GET")) {
+				rd = request.getRequestDispatcher("/ch07/kcity/insert.jsp");
+				rd.forward(request, response);
+			} else {
+				
+			}
+			break;
 			
 		case "update":
 			
