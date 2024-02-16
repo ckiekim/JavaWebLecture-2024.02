@@ -31,6 +31,7 @@ public class KcityController extends HttpServlet {
 		String name = null, countryCode = null, district = null, population_ = null;
 		int id = 0, population = 0;
 		City city = null;
+		String[] districts = "Cheju,Chollabuk,Chollanam,Chungchongbuk,Chungchongnam,Inchon,Kang-won,Kwangju,Kyonggi,Kyongsangbuk,Kyongsangnam,Pusan,Seoul,Taegu,Taejon".split(",");
 		
 		switch(action) {
 		case "list":
@@ -50,6 +51,7 @@ public class KcityController extends HttpServlet {
 		case "insert":
 			if (method.equals("GET")) {
 				rd = request.getRequestDispatcher("/ch07/kcity/insert.jsp");
+				request.setAttribute("districts", districts);
 				rd.forward(request, response);
 			} else {
 				name = request.getParameter("name");
@@ -71,6 +73,7 @@ public class KcityController extends HttpServlet {
 				city = cDao.getCity(id);
 				rd = request.getRequestDispatcher("/ch07/kcity/update.jsp");
 				request.setAttribute("city", city);
+				request.setAttribute("districts", districts);
 				rd.forward(request, response);
 			} else {
 				id = Integer.parseInt(request.getParameter("id"));
