@@ -16,7 +16,8 @@ import ch07_dao.CityDao;
 /**
  * Servlet implementation class KcityController
  */
-@WebServlet({"/ch07/kcity/list", "/ch07/kcity/insert", "/ch07/kcity/update", "/ch07/kcity/delete"})
+@WebServlet({"/ch07/kcity/list", "/ch07/kcity/insert", "/ch07/kcity/update", 
+			"/ch07/kcity/delete", "/ch07/kcity/wrong"})
 public class KcityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CityDao cDao = new CityDao();
@@ -27,10 +28,13 @@ public class KcityController extends HttpServlet {
 		String action = uri[uri.length - 1];
 		String method = request.getMethod();
 		RequestDispatcher rd = null;
+		String name = null, countryCode = null, district = null, population_ = null;
+		int id = 0, population = 0;
+		City city = null;
 		
 		switch(action) {
 		case "list":
-			String district = request.getParameter("district");
+			district = request.getParameter("district");
 			district = (district == null || district.equals("")) ? "Kyonggi" : district;
 			String num_ = request.getParameter("num");
 			int num = (num_ == null || num_.equals("")) ? 10 : Integer.parseInt(num_);
@@ -48,17 +52,50 @@ public class KcityController extends HttpServlet {
 				rd = request.getRequestDispatcher("/ch07/kcity/insert.jsp");
 				rd.forward(request, response);
 			} else {
+				name = request.getParameter("name");
+				countryCode = request.getParameter("countryCode");
+				district = request.getParameter("district");
+				population_ = request.getParameter("population");
+				population = (population_.equals("")) ? 0 : Integer.parseInt(population_);
 				
+				city = new City(name, countryCode, district, population);
+				cDao.insertCity(city);
+				
+				response.sendRedirect("/jw/ch07/kcity/list?district=" + district + "&num=30&offset=0");
 			}
 			break;
 			
 		case "update":
-			
+			if (method.equals("GET")) {
+				id = Integer.parseInt(request.getParameter("id"));
+				city = cDao.getCity(id);
+				rd = request.getRequestDispatcher("/ch07/kcity/update.jsp");
+				request.setAttribute("city", city);
+				rd.forward(request, response);
+			} else {
+				id = Integer.parseInt(request.getParameter("id"));
+				name = request.getParameter("name");
+				countryCode = request.getParameter("countryCode");
+				district = request.getParameter("district");
+				population_ = request.getParameter("population");
+				population = (population_.equals("")) ? 0 : Integer.parseInt(population_);
+				city = new City(id, name, countryCode, district, population);
+				cDao.updateCity(city);
+				response.sendRedirect("/jw/ch07/kcity/list?district=" + district + "&num=30&offset=0");
+			}
+			break;
 			
 		case "delete":
-			
+			id = Integer.parseInt(request.getParameter("id"));
+			cDao.deleteCity(id);
+			response.sendRedirect("/jw/ch07/kcity/list?district=Kyonggi&num=30&offset=0");
+			break;
 			
 		default:
+			rd = request.getRequestDispatcher("/ch07/kcity/alertMsg.jsp");
+			request.setAttribute("msg", "잘못된 접근입니다.");
+			request.setAttribute("url", "/jw/ch07/kcity/list");
+			rd.forward(request, response);
 		}
 	}
 
