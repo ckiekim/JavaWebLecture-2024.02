@@ -24,45 +24,45 @@ public class Ex02_List extends HttpServlet {
 		
 		CityDao cDao = new CityDao();
 		List<City> list = cDao.getCityList(district, num, offset);
-		list.forEach(x -> System.out.println(x));
+//		list.forEach(x -> System.out.println(x));
 		
-//		RequestDispatcher rd = request.getRequestDispatcher("/ch07/list.jsp");
-//		request.setAttribute("list", list);
-//		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/ch07/list.jsp");
+		request.setAttribute("list", list);
+		rd.forward(request, response);
 		
-		String data = "";
-		for (City c: list) {
-			data += "<tr>";
-			data += " 	<td>" + c.getId() + "</td>";
-			data += " 	<td>" + c.getName() + "</td>";
-			data += " 	<td>" + c.getCountryCode() + "</td>";
-			data += " 	<td>" + c.getDistrict() + "</td>";
-			data += " 	<td>" + c.getPopulation() + "</td>";
-			data += "</tr>";
-		}
+//		String data = "";
+//		for (City c: list) {
+//			data += "<tr>";
+//			data += " 	<td>" + c.getId() + "</td>";
+//			data += " 	<td>" + c.getName() + "</td>";
+//			data += " 	<td>" + c.getCountryCode() + "</td>";
+//			data += " 	<td>" + c.getDistrict() + "</td>";
+//			data += " 	<td>" + c.getPopulation() + "</td>";
+//			data += "</tr>";
+//		}
+//		
+//		String html = "<!DOCTYPE html>"
+//				+ "<html>"
+//				+ "<head>"
+//				+ "	<meta charset=\"UTF-8\">"
+//				+ "	<title>City List</title>"
+//				+ "	<style>"
+//				+ "		th, td { padding: 3px; }"
+//				+ "	</style>"
+//				+ "</head>"
+//				+ "<body style=\"margin: 50px;\">"
+//				+ "	<h1>City List</h1>"
+//				+ "	<hr>"
+//				+ "	<table border=\"1\">"
+//				+ "		<tr><th>아이디</th><th>도시명</th><th>국가코드</th><th>지역명</th><th>인구수</th></tr>";
+//		html += data;
+//		html += "	</table>"
+//				+ "</body>"
+//				+ "</html>";
 		
-		String html = "<!DOCTYPE html>"
-				+ "<html>"
-				+ "<head>"
-				+ "	<meta charset=\"UTF-8\">"
-				+ "	<title>City List</title>"
-				+ "	<style>"
-				+ "		th, td { padding: 3px; }"
-				+ "	</style>"
-				+ "</head>"
-				+ "<body style=\"margin: 50px;\">"
-				+ "	<h1>City List</h1>"
-				+ "	<hr>"
-				+ "	<table border=\"1\">"
-				+ "		<tr><th>아이디</th><th>도시명</th><th>국가코드</th><th>지역명</th><th>인구수</th></tr>";
-		html += data;
-		html += "	</table>"
-				+ "</body>"
-				+ "</html>";
-		
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.print(html);
+//		response.setContentType("text/html; charset=utf-8");
+//		PrintWriter out = response.getWriter();
+//		out.print(html);
 	}
 
 }

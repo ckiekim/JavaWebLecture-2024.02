@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 
+Jakarta EE 에서 JSTL을 사용하려면 
+	1. Jakarta Standard Tag Library API
+		jakarta.servlet.jsp.jstl-api-3.0.0.jar (45 KB)
+	2. org.glassfish.web Jakarta Standard Tag Library Implementation: 
+		jakarta.servlet.jsp.jstl-3.0.1.jar (3625 KB)
+-->
 
 <!DOCTYPE html>
 <html>
