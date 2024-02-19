@@ -35,8 +35,20 @@
 			<td>${user.email}</td>
 			<td>${user.regDate}</td>
 			<td>
-				<a href="/jw/ch09/user/update?uid=${user.uid}">수정</a>
-				<a href="/jw/ch09/user/delete?uid=${user.uid}">삭제</a>
+				<!-- 본인만 수정 가능 -->
+				<c:if test="${user.uid eq sessUid}">	
+					<a href="/jw/ch09/user/update?uid=${user.uid}">수정</a>
+				</c:if>
+				<c:if test="${user.uid ne sessUid}">
+					<a href="#" disabled>수정</a>
+				</c:if>
+				<!-- 본인 또는 관리자만 삭제 가능 -->
+				<c:if test="${(user.uid eq sessUid) or (sessUid eq 'admin')}">
+					<a href="/jw/ch09/user/delete?uid=${user.uid}">삭제</a>
+				</c:if>
+				<c:if test="${(user.uid ne sessUid) and (sessUid ne 'admin')}">
+					<a href="#" disabled>삭제</a>
+				</c:if>
 			</td>
 		</tr>
 		</c:forEach>
