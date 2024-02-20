@@ -107,7 +107,8 @@ public class UserController extends HttpServlet {
 			if (method.equals("GET")) {
 				uid = request.getParameter("uid");
 				user = uSvc.getUserByUid(uid);
-				rd = request.getRequestDispatcher("/ch09/user/update.jsp");
+//				rd = request.getRequestDispatcher("/ch09/user/update.jsp");
+				rd = request.getRequestDispatcher("/ch09/user/updateBS.jsp");
 				request.setAttribute("user", user);
 				rd.forward(request, response);
 			} else {
