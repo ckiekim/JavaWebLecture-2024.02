@@ -41,7 +41,8 @@ public class UserController extends HttpServlet {
 			
 		case "login":
 			if (method.equals("GET")) {
-				rd = request.getRequestDispatcher("/ch09/user/login.jsp");
+//				rd = request.getRequestDispatcher("/ch09/user/login.jsp");
+				rd = request.getRequestDispatcher("/ch09/user/loginBS.jsp");
 				rd.forward(request, response);
 			} else {
 				uid = request.getParameter("uid");
@@ -75,7 +76,8 @@ public class UserController extends HttpServlet {
 		case "register":
 			if (method.equals("GET")) {
 				session.invalidate();
-				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+//				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+				rd = request.getRequestDispatcher("/ch09/user/registerBS.jsp");
 				rd.forward(request, response);
 			} else {
 				uid = request.getParameter("uid");
