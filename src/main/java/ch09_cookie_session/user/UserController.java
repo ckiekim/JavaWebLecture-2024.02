@@ -35,7 +35,8 @@ public class UserController extends HttpServlet {
 			int page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_);
 			List<User> list = uSvc.getUserList(page);
 			request.setAttribute("list", list);
-			rd = request.getRequestDispatcher("/ch09/user/list.jsp");
+//			rd = request.getRequestDispatcher("/ch09/user/list.jsp");
+			rd = request.getRequestDispatcher("/ch09/user/listBS.jsp");
 			rd.forward(request, response);
 			break;
 			
