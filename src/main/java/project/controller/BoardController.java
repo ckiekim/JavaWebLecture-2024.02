@@ -27,6 +27,8 @@ public class BoardController extends HttpServlet {
 		String method = request.getMethod();
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = null;
+		String title = "", content = "", sessUid = "";
+		Board board = null;
 		
 		switch(action) {
 		case "list":			// /jw/bbs/board/list?p=1&f=title&q=검색
@@ -50,6 +52,24 @@ public class BoardController extends HttpServlet {
 			
 			rd = request.getRequestDispatcher("/WEB-INF/view/board/list.jsp");
 			rd.forward(request, response);
+			break;
+			
+		case "insert":
+			sessUid = (String) session.getAttribute("sessUid");
+			if (sessUid == null || sessUid.equals("")) {
+				response.sendRedirect("/jw/bbs/user/login");
+				break;
+			}
+			if (method.equals("GET")) {
+				rd = request.getRequestDispatcher("/WEB-INF/view/board/insert.jsp");
+				rd.forward(request, response);		
+			} else {
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				board = new Board(title, content, sessUid);
+				bSvc.insertBoard(board);
+				response.sendRedirect("/jw/bbs/board/list?p=1");
+			}
 			break;
 			
 		}
