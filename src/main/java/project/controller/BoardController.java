@@ -39,6 +39,8 @@ public class BoardController extends HttpServlet {
 			session.setAttribute("currentBoardPage", page);
 			field = (field == null || field.equals("")) ? "title" : field;
 			query = (query == null || query.equals("")) ? "" : query;
+			request.setAttribute("field", field);
+			request.setAttribute("query", query);
 			List<Board> boardList = bSvc.getBoardList(page, field, query);
 			request.setAttribute("boardList", boardList);
 			
