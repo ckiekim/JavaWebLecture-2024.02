@@ -102,6 +102,24 @@ public class BoardController extends HttpServlet {
 			query = URLEncoder.encode(query, "utf-8");
 			response.sendRedirect("/jw/bbs/board/list?p=" + page + "&f=" + field + "&q=" + query);
 			break;
+			
+		case "update":
+			if (method.equals("GET")) {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				board = bSvc.getBoard(bid);
+				request.setAttribute("board", board);
+				rd = request.getRequestDispatcher("/WEB-INF/view/board/update.jsp");
+				rd.forward(request, response);
+			} else {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				board = new Board(bid, title, content);
+				
+				bSvc.updateBoard(board);
+				response.sendRedirect("/jw/bbs/board/detail?bid=" + bid);
+			}
+			break;
 		}
 	}
 

@@ -9,7 +9,6 @@
 	<%@ include file="../common/_head.jspf" %>
 	<style>
 		td, th { text-align: center; }
-		.disabled-link { pointer-events: none; }
 	</style>
 	<script>
 		function deleteFunc(bid) {
