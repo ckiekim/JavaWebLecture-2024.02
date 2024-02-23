@@ -14,7 +14,8 @@
 		function search() {
 			const field = $('#field').val();
 			const query = $('#query').val();
-			location.href = '/jw/bbs/board/list?p=${currentBoardPage}&f=' + field + '&q=' + query;
+			const uri = '/jw/bbs/board/list?p=${currentBoardPage}&f=' + field + '&q=' + query
+			location.href = encodeURI(uri);
 		}
 	</script>
 </head>
