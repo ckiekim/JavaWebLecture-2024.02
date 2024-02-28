@@ -17,8 +17,8 @@
 		</select><br><br>
 		<input type="text" name="pname" placeholder="상품명"><br><br>
 		<input type="text" name="price" placeholder="가격"><br><br>
-		<textarea rows="3" cols="40"></textarea><br><br>
-		<input type="file" name="imgFile"><br><br>
+		<textarea rows="3" cols="40" name="description"></textarea><br><br>
+		<input type="file" name="imgFile" placeholder="이미지 파일"><br><br>
 		<input type="submit" value="확인">
 	</form>
 </body>

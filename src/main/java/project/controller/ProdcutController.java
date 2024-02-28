@@ -8,8 +8,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
 
 @WebServlet({"/bbs/product/insert", "/bbs/product/view"})
 @MultipartConfig(
@@ -36,12 +42,44 @@ public class ProdcutController extends HttpServlet {
 			} else {
 				String category = request.getParameter("category");
 				String pname = request.getParameter("pname");
-				String price_ = request.getParameter("category");
+				String price_ = request.getParameter("price");
 				int price = Integer.parseInt(price_);
 				String description = request.getParameter("description");
+				
+				Part filePart = request.getPart("imgFile");
+				String filename = filePart.getSubmittedFileName();
+				System.out.println("filename=" + filename);
+				String[] ext = filename.split("\\.");
+				System.out.println("ext length=" + ext.length);
+				String extension = ext[ext.length - 1];
+				String fname = category + System.currentTimeMillis() + "." + extension;
+				String path = UPLOAD_PATH + "/" + fname;
+				System.out.println("path=" + path);
+				filePart.write(path);
+				
+				response.sendRedirect("/jw/bbs/product/view?filename=" + URLEncoder.encode(fname, "utf-8"));
 			}
 			break;
 			
+		case "view":
+			byte[] buffer = new byte[8*1024];		// 8 KB buffer
+			String fname = request.getParameter("filename");
+			String path = UPLOAD_PATH + "/" + fname;
+			OutputStream os = response.getOutputStream();
+			response.setContentType("text/html; charset=utf-8");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setHeader("Content-disposition", "attachment; fileName=" +
+								URLEncoder.encode(fname, "utf-8"));
+			
+			FileInputStream fis = new FileInputStream(path);
+			while (true) {
+				int count = fis.read(buffer);
+				if (count == -1)
+					break;
+				os.write(buffer, 0, count);
+			}
+			fis.close(); os.close();
+			break;
 		}
 	}
 
