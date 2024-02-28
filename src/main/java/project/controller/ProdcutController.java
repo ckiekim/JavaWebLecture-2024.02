@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import project.entity.Product;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,16 +49,16 @@ public class ProdcutController extends HttpServlet {
 				
 				Part filePart = request.getPart("imgFile");
 				String filename = filePart.getSubmittedFileName();
-				System.out.println("filename=" + filename);
 				String[] ext = filename.split("\\.");
-				System.out.println("ext length=" + ext.length);
 				String extension = ext[ext.length - 1];
 				String fname = category + System.currentTimeMillis() + "." + extension;
 				String path = UPLOAD_PATH + "/" + fname;
-				System.out.println("path=" + path);
 				filePart.write(path);
 				
-				response.sendRedirect("/jw/bbs/product/view?filename=" + URLEncoder.encode(fname, "utf-8"));
+				Product product = new Product(category, pname, price, description, fname);
+				rd = request.getRequestDispatcher("/WEB-INF/view/product/detail.jsp");
+				request.setAttribute("product", product);
+				rd.forward(request, response);
 			}
 			break;
 			
