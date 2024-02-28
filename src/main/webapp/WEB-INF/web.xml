@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
   <servlet>
     <description></description>
     <display-name>Ex01_FirstServlet</display-name>
@@ -277,5 +277,15 @@
   <servlet-mapping>
     <servlet-name>BoardController</servlet-name>
     <url-pattern>/BoardController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProdcutController</display-name>
+    <servlet-name>ProdcutController</servlet-name>
+    <servlet-class>project.controller.ProdcutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdcutController</servlet-name>
+    <url-pattern>/ProdcutController</url-pattern>
   </servlet-mapping>
 </web-app>
